@@ -52,7 +52,7 @@ class ResponseTest extends TestCase
     public function testwithStatusReturnsAccordinglyToRFC7231()
     {
         $response = new Response();
-        $responsePhrase = $response->withStatus(418, 'test me if you can')->getReasonPhrase();
+        $responsePhrase = $response->withStatus(418)->getReasonPhrase();
         $this -> assertSame("I'm a teapot", $responsePhrase);
     }
 
