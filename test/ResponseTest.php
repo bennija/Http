@@ -63,11 +63,19 @@ class ResponseTest extends TestCase
         $this -> assertSame('test me if you can', $responsePhrase);
     }
 
-    public function testeOriginalResponseNotModifiedByWithStatusMethod()
+    public function testOriginalResponseNotModifiedByWithStatusMethod()
     {
         $response = new Response(418);
         $response->withStatus(418, 'test me if you can')->getReasonPhrase();
         $originalPhrase = $response->getReasonPhrase();
         $this -> assertSame("I'm a teapot", $originalPhrase);
+    }
+
+    public function testOriginalResponseCodeIsNotModifiedByWithStatusMethod()
+    {
+        $response = new Response(200);
+        $response->withStatus(418, 'test me if you can')->getReasonPhrase();
+        $originalCode = $response->getStatusCode();
+        $this -> assertSame(200, $originalCode);
     }
 }
