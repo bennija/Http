@@ -44,9 +44,9 @@ class ResponseTest extends TestCase
 
     public function testReasonPhraseIsPrioritised()
     {
-        $response = new Response(418,[],null,'1.1',"I'm a teapot");
+        $response = new Response(418,[],null,'1.1',"I'm a coffeepot");
         $responsePhrase = $response->getReasonPhrase();
-        $this -> assertSame("I'm a teapot", $responsePhrase);
+        $this -> assertSame("I'm a coffeepot", $responsePhrase);
     }
 
     public function testwithStatusReturnsAccordinglyToRFC7231()
@@ -61,5 +61,13 @@ class ResponseTest extends TestCase
         $response = new Response();
         $responsePhrase = $response->withStatus(418, 'test me if you can')->getReasonPhrase();
         $this -> assertSame('test me if you can', $responsePhrase);
+    }
+
+    public function testeOriginalResponseNotModifiedByWithStatusMethod()
+    {
+        $response = new Response(418);
+        $response->withStatus(418, 'test me if you can')->getReasonPhrase();
+        $originalPhrase = $response->getReasonPhrase();
+        $this -> assertSame("I'm a teapot", $originalPhrase);
     }
 }
