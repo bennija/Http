@@ -12,7 +12,7 @@ use InvalidArgumentException;
 
 /**
  * A PSR-7 compliant Stream implementation.
- * 
+ *
  * This might be factored out to a Horde\Stream\ package but this is out of scope for now
  *
  * Typically, an instance will wrap a PHP stream; this interface provides
@@ -23,7 +23,7 @@ class Stream implements StreamInterface
 {
     /**
      * Cannot type for resource in php 7.x so keep this annotation
-     * 
+     *
      * @var resource $stream
      */
     protected $stream;
@@ -44,7 +44,7 @@ class Stream implements StreamInterface
         $meta = stream_get_meta_data($this->stream);
         $this->seekable = $meta['seekable'];
         $this->readable = in_array($meta['mode'], Constants::READABLE_STREAM_MODES);
-        $this->writeable = in_array($meta['mode'], Constants::WRITABLE_STREAM_MODES);
+        $this->writable = in_array($meta['mode'], Constants::WRITABLE_STREAM_MODES);
         $this->uri = $meta['uri'];
     }
     /**
@@ -83,7 +83,7 @@ class Stream implements StreamInterface
     {
         if (!empty($this->stream)) {
             fclose($this->stream);
-            $this->detach();    
+            $this->detach();
         }
     }
 
