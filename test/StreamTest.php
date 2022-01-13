@@ -112,9 +112,10 @@ class StreamTest extends TestCase
     {
         $stream = new Stream(fopen('php://temp', 'r+'));
         $stream->write('123456789TestXYZ');
-        $stream->read(2);
+        $stream->rewind();
+        $stream->read(9);
         $content = $stream->getContents();
-        $this->assertSame('', $content);
+        $this->assertSame('TestXYZ', $content);
     }
 
     public function testGetMetadata()
@@ -151,5 +152,13 @@ class StreamTest extends TestCase
         $stream->detach();
         $isReadable = $stream->isReadable();
         $this->assertSame(false, $isReadable);
+    }
+
+    public function testDetachWithMetaData()
+    {
+        $stream = new Stream(fopen('php://temp', 'r+'));
+        $stream->detach();
+        $meta = $stream->getMetadata();
+        $this->assertSame([], $meta);
     }
 }
