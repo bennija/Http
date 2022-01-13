@@ -30,6 +30,7 @@ class Stream implements StreamInterface
     protected bool $seekable;
     protected bool $readable;
     protected bool $writable;
+    protected ?int $size = null;
 
     /**
      * Stream constructor
